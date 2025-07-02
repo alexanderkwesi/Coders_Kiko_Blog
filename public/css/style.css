@@ -1,0 +1,47 @@
+
+.hero-bg {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+background-size: cover;
+background-position: center;
+}
+.post-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.category-tag {
+transition: all 0.3s ease;
+}
+.category-tag:hover {
+transform: scale(1.05);
+}
+.post-card {
+transition: all 0.3s ease;
+position: relative;
+width: 100%;
+height: auto;
+}
+
+.post-card.expanded {
+transform: none !important;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+z-index: 10;
+width: 100%;
+max-width: 100%;
+margin-bottom: 30px;
+}
+
+.post-card .post-content {
+display: none;
+}
+
+.post-card .post-excerpt {
+display: block;
+}
+
+.post-card.expanded .post-content {
+display: block;
+}
+
+.post-card.expanded .post-excerpt {
+display: none;
+}

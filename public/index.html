@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coders Kiko Blog</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css">
+  <style>
+    .hero-bg {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://wallpapers.com/images/hd/code-programming-symbols-strings-colorful-text-1qktpvia5qbi5nes.webp');
+      background-size: cover;
+      background-position: center;
+    }
+    .post-card {
+      transition: all 0.3s ease;
+    }
+    .post-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .category-tag {
+      transition: all 0.3s ease;
+    }
+    .category-tag:hover {
+      transform: scale(1.05);
+    }
+    .post-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .post-content.expanded {
+      max-height: 1000px;
+    }
+    .rotate-180 {
+      transform: rotate(180deg);
+    };
+    .show{
+      display:inline-block
+    }
+    .hide
+    {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+  <!-- Hero Section -->
+  <header class="hero-bg text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4"><span style="color:blueviolet;">{</span> Coders Kiko Blog <span style="color:navy;">}</span></h1>
+      <p class="text-xl md:text-2xl mb-8">Discover and Get to Know Everything About How Coding....... Enthusiast Feel</p>
+      <div class="flex justify-center space-x-4">
+        <a href="#posts" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-medium">Explore Posts</a>
+        <a href="#create" class="bg-white hover:bg-gray-100 text-green-700 px-6 py-3 rounded-full font-medium">Start Writing</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-screen">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <!-- Post creation form -->
+      <section id="create" class="bg-white p-6 rounded-xl shadow-lg mb-12 border border-gray-200">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Share Your Story</h2>
+        <form id="blogForm" method="POST" enctype="multipart/form-data">
+          <div class="flex items-start space-x-3">
+            <div class="flex-1">
+              <input id="title" type="text" placeholder="Start a post..." class="w-full p-3 border border-gray-300 rounded-lg mb-3 text-lg" required>
+              <textarea id="content" placeholder="Write more here..." class="w-full p-3 border border-gray-300 rounded-lg mb-3 hidden" rows="3" required></textarea>
+              <div class="flex items-center space-x-2 mb-3">
+                <button id="addImageBtn" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold w-15 h-15 rounded-full flex items-center justify-center text-xl">
+                  <i class="fas fa-image p-3"></i>
+                </button>
+                <input id="totalnumber" type="hidden">
+                <input id="imageFile" type="file" accept="image/*" class="hidden">
+                <input id="image" type="text" placeholder="No image selected" readonly class="w-full p-2 border border-gray-300 rounded bg-gray-50 cursor-default">
+              </div>
+              <div class="flex justify-between items-center">
+                <small class="text-sm text-gray-500">Click the image icon to add visuals to your post</small>
+                <button id="publish" type="submit" class="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 font-medium flex items-center" disabled>
+                  <i class="fas fa-paper-plane mr-2"></i> Publish
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Featured Categories -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Explore Categories</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="#" class="Programming-Language category-tag bg-gray-100 text-amber-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">#⃣</span>
+            <span class="font-semibold text-lg text-center">Programming Languages</span>
+          </a>
+          <a href="#" class="Web-Development category-tag bg-blue-100 text-blue-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">🖥️</span>
+            <span class="font-semibold text-lg text-center">Web Development</span>
+          </a>
+          <a href="#" class="Databases category-tag bg-purple-100 text-purple-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">🗄️</span>
+            <span class="font-semibold text-lg text-center">Databases</span>
+          </a>
+          <a href="#" class="DevOps-&-Tools category-tag bg-green-100 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">💫✨</span>
+            <span class="font-semibold text-lg text-center">DevOps & Tools</span>
+          </a>
+          <a href="#" class="Mobile-Development category-tag bg-yellow-100 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">📱</span>
+            <span class="font-semibold text-lg text-center">Mobile Development</span>
+          </a>
+          <a href="#" class="Security category-tag bg-blue-100 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">🔐</span>
+            <span class="font-semibold text-lg text-center">Security</span>
+          </a>
+          <a href="#" class="Computer-Science-Foundations category-tag bg-yellow-300 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">🧠</span>
+            <span class="font-semibold text-lg text-center">Computer Science Foundations</span>
+          </a>
+          <a href="#" class="Testing category-tag bg-red-100 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">🧪</span>
+            <span class="font-semibold text-lg text-center">Testing</span>
+          </a>
+          <a href="#" class="AI-&-Machine-Learning category-tag bg-pink-100 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">🤖</span>
+            <span class="font-semibold text-lg text-center">AI & Machine Learning</span>
+          </a>
+          <a href="#" class="API-&-Integration category-tag bg-purple-100 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">📦</span>
+            <span class="font-semibold text-lg text-center">APIs & Integration</span>
+          </a>
+          <a href="#" class="General category-tag bg-purple-500 text-green-800 p-4 rounded-lg flex flex-col items-center">
+            <span class="font-semibold text-lg text-centerw-16 h-16 rounded-full mb-2">📦</span>
+            <span class="font-semibold text-lg text-center">General</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Blog posts -->
+      <section id="posts">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">Latest Posts</h2>
+          <div class="flex items-center space-x-2">
+            <span class="text-gray-600">Sort by:</span>
+            <select class="sort-by-date border border-gray-300 rounded-lg px-3 py-1">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="mostpopular">Most Popular</option>
+              <option value="trending">Trending</option>
+            </select>
+          </div>
+        </div>
+
+         <!-- Posts will be loaded dynamically -->
+        <div id="postsContainer" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 bg-yeloow-200">
+         
+        </div>
+
+        <!--Spinner-->
+        <section class="flex justify-center items-center mt-12 space-x-4 show">
+        <div class="spinner w-[1200px] flex flex-col items-center justify-center text-center gap-2">
+          <i class="fas fa-spinner fa-spin text-blue-500 text-6xl"></i>
+          <p class="mt-2 text-gray-900 text-2xl">Loading posts...</p>
+        </div>
+        </section>
+        
+        <div class="flex justify-center items-center mt-12 space-x-4">
+          <div class="flex justify-between items-center">
+            <button id="prevBtn" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center hidden">
+              <i class="fas fa-chevron-left mr-2"></i>Previous
+            </button>
+            <span id="pageIndicator" class="text-lg font-semibold px-4 py-2 bg-gray-100 rounded-lg hidden"></span>
+            <button id="nextBtn" class="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg flex items-center hidden">
+              <i class="fas fa-chevron-right mr-2"></i>Next
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Video Section -->
+      <section class="mt-16 bg-gray-50 rounded-xl p-8">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-2xl font-bold mb-6 text-center">Explore Africa</h2>
+          
+          <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+              <div class="glide__slides">
+                <div class="glide__slide p-2">
+                  <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+                    <iframe class="w-full h-96" src="https://www.youtube.com/embed/7eAG_458Hj0" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <div class="mt-4 text-center">
+                    <h3 class="text-xl font-semibold">The Taste of Africa</h3>
+                    <p class="text-gray-600">A culinary journey across the continent</p>
+                  </div>
+                </div>
+                <div class="glide__slide p-2">
+                  <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+                    <iframe class="w-full h-96" src="https://www.youtube.com/embed/0VQ7wHJWkl8" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <div class="mt-4 text-center">
+                    <h3 class="text-xl font-semibold">Top African Destinations</h3>
+                    <p class="text-gray-600">Must-visit places from safari to cities</p>
+                  </div>
+                </div>
+                <div class="glide__slide p-2">
+                  <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+                    <iframe class="w-full h-96" src="https://www.youtube.com/embed/CgzSnWFQti8" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <div class="mt-4 text-center">
+                    <h3 class="text-xl font-semibold">Ancient African Civilizations</h3>
+                    <p class="text-gray-600">From Egypt to Great Zimbabwe</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="glide__arrows mt-6" data-glide-el="controls">
+              <button class="glide__arrow glide__arrow--left bg-green-600 text-white p-2 rounded-full" data-glide-dir="<">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="glide__arrow glide__arrow--right bg-green-600 text-white p-2 rounded-full" data-glide-dir=">">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <div class="container mx-auto px-4 py-12 max-w-3xl">
+        <header class="text-center mb-12">
+          <h1 class="text-4xl font-bold text-afrilish-primary mb-3">Meet Us At The Q&A</h1>
+          <p class="text-lg text-gray-600">Your guide to understanding Kiko African English expressions and cultural nuances - A coders delight or worst nightmare?</p>
+      </header>
+
+        <div class="space-y-4">
+          <!-- Question 1 -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <button class="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none group" onclick="toggleAnswer('answer1')">
+                <span class="text-lg font-medium text-afrilish-accent group-hover:text-afrilish-primary">What does "I'm coming" really mean in Kiko?</span>
+                <svg id="icon1" class="w-6 h-6 text-afrilish-primary transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div id="answer1" class="px-6 pb-4 hidden">
+                <div class="prose prose-lg text-gray-700">
+                    <p>In Kiko, "I'm coming" often doesn't mean the speaker is immediately on their way. It's a cultural expression that can mean:</p>
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>I'll be there soon (but not necessarily right now)</li>
+                        <li>I acknowledge your request and will attend to it</li>
+                        <li>I'm about to start getting ready to come</li>
+                    </ul>
+                    <p class="mt-3">This differs from standard English where "I'm coming" implies immediate action. The Kiko version is more about intention than imminent arrival.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <button class="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none group" onclick="toggleAnswer('answer2')">
+                <span class="text-lg font-medium text-afrilish-accent group-hover:text-afrilish-primary">Why do some Kiko English speakers say "I'm hearing you" instead of "I hear you"?</span>
+                <svg id="icon2" class="w-6 h-6 text-afrilish-primary transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div id="answer2" class="px-6 pb-4 hidden">
+                <div class="prose prose-lg text-gray-700">
+                    <p>The progressive form "I'm hearing you" is commonly used in Kiko to indicate active, ongoing attention and understanding. This construction:</p>
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>Emphasizes the present moment of comprehension</li>
+                        <li>Often conveys empathy and engagement with the speaker</li>
+                        <li>May derive from similar structures in African languages</li>
+                    </ul>
+                    <p class="mt-3">While "I hear you" might sound more natural in standard English, "I'm hearing you" carries additional cultural weight in Kiko contexts, suggesting not just auditory reception but emotional connection.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <button class="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none group" onclick="toggleAnswer('answer3')">
+                <span class="text-lg font-medium text-afrilish-accent group-hover:text-afrilish-primary">What's the meaning of "sorry" when used repeatedly in Nigerian English?</span>
+                <svg id="icon3" class="w-6 h-6 text-afrilish-primary transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div id="answer3" class="px-6 pb-4 hidden">
+                <div class="prose prose-lg text-gray-700">
+                    <p>In Nigerian English and other Kiko varieties, "sorry" serves multiple functions beyond apology:</p>
+                    <ul class="list-disc pl-5 mt-2">
+                        <li><strong>Empathy expression:</strong> "Sorry oh!" shows sympathy for someone's situation</li>
+                        <li><strong>Attention getter:</strong> Repeated "sorries" can preface an important statement</li>
+                        <li><strong>Conversation smoother:</strong> Used to maintain harmony in dialogue</li>
+                        <li><strong>Shock response:</strong> "Sorry! Sorry!! Sorry!!!" reacts to surprising news</li>
+                    </ul>
+                    <p class="mt-3">The tonal delivery and repetition pattern change the meaning completely from the standard English apology.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <button class="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none group" onclick="toggleAnswer('answer4')">
+                <span class="text-lg font-medium text-afrilish-accent group-hover:text-afrilish-primary">How does "you people" function in Afrilish compared to standard English?</span>
+                <svg id="icon4" class="w-6 h-6 text-afrilish-primary transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div id="answer4" class="px-6 pb-4 hidden">
+                <div class="prose prose-lg text-gray-700">
+                    <p>The phrase "you people" in Kiko has distinct usages that differ from standard English:</p>
+                    <table class="min-w-full mt-3 border">
+                        <thead class="bg-afrilish-secondary">
+                            <tr>
+                                <th class="px-4 py-2 text-left">Context</th>
+                                <th class="px-4 py-2 text-left">Kiko Meaning</th>
+                                <th class="px-4 py-2 text-left">Standard English Equivalent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t">
+                                <td class="px-4 py-2">"You people are not serious"</td>
+                                <td class="px-4 py-2">General address to a group, often affectionate</td>
+                                <td class="px-4 py-2">"You all aren't serious"</td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="px-4 py-2">"Come and see you people"</td>
+                                <td class="px-4 py-2">Drawing attention to the group's actions</td>
+                                <td class="px-4 py-2">"Come see what you all are doing"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="mt-3">Unlike in standard English where "you people" can sound accusatory or distancing, in Kiko it's typically neutral or even endearing, reflecting the communal nature of many African societies.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <button class="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none group" onclick="toggleAnswer('answer5')">
+                <span class="text-lg font-medium text-afrilish-accent group-hover:text-afrilish-primary">What are some common Afrilish greetings and their cultural significance?</span>
+                <svg id="icon5" class="w-6 h-6 text-afrilish-primary transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div id="answer5" class="px-6 pb-4 hidden">
+                <div class="prose prose-lg text-gray-700">
+                    <p>Kiko greetings often go beyond simple hellos to encompass wellbeing inquiries and community connection:</p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-3">
+                        <div class="bg-afrilish-secondary bg-opacity-20 p-4 rounded-lg">
+                            <h3 class="font-bold text-afrilish-primary">"How now?"</h3>
+                            <p>(Nigeria) - Literal translation from local languages meaning "How are things?"</p>
+                        </div>
+                        <div class="bg-afrilish-secondary bg-opacity-20 p-4 rounded-lg">
+                            <h3 class="font-bold text-afrilish-primary">"You woke up well?"</h3>
+                            <p>(East Africa) - Morning greeting emphasizing health and safety</p>
+                        </div>
+                        <div class="bg-afrilish-secondary bg-opacity-20 p-4 rounded-lg">
+                            <h3 class="font-bold text-afrilish-primary">"How body?"</h3>
+                            <p>(West Africa) - Pidgin inquiry about physical wellbeing</p>
+                        </div>
+                        <div class="bg-afrilish-secondary bg-opacity-20 p-4 rounded-lg">
+                            <h3 class="font-bold text-afrilish-primary">"Are you there?"</h3>
+                            <p>(Southern Africa) - Phone greeting checking connection and presence</p>
+                        </div>
+                    </div>
+                    <p class="mt-3">These greetings reflect cultural values that prioritize personal connection and community wellbeing over transactional communication.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+  </main>
+
+  <!-- Newsletter Section -->
+  <section class="w-screen text-white py-16 px-4" style="background: linear-gradient(30deg, red 0%, yellow 25%, black 50%, pink 100%);">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-block bg-white text-green-700 px-3 py-1 rounded-full text-sm font-semibold mb-4">STAY UPDATED</div>
+      <h2 class="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">Get the latest posts, tech updates, and news insights from across Kiko delivered right to your inbox.</p>
+      <form id="subscriptionForm" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input id="email" name="email" type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg focus:outline-none text-gray-800" required>
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold px-6 py-3 rounded-lg transition duration-300">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="space-y-4">
+        <a class="flex items-center">
+          <span class="text-2xl font-bold text-white"><h3 class="text-4xl md:text-6xl font-extrabold mb-4"><span style="color:blueviolet;">{</span> Coders Kiko Blog <span style="color:navy;">}</span></h3></span>
+        </a>
+        <p class="text-gray-400">
+          Connecting with coders through their stories.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <!-- More footer sections... -->
+    </div>
+    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+      <p>&copy; 2023 Coders Kiko. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <p class="hidden get_promise"></p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js"></script>
+  <script>
+    // Initialize video carousel
+    new Glide('.glide', {
+      type: 'carousel',
+      perView: 1,
+      focusAt: 'center',
+      gap: 20,
+      autoplay: 5000,
+      hoverpause: true,
+      breakpoints: {
+        1024: { perView: 1 },
+        768: { perView: 1 }
+      }
+    }).mount();
+
+    // FAQ toggle function
+    function toggleAnswer(id) {
+      const answer = document.getElementById(id);
+      const icon = document.getElementById('icon' + id.slice(-1));
+      answer.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+  </script>
+  <script src="../public/scripts/indexuse.js"></script>
+  <script src="../public/scripts/category2use.js"></script>
+</body>
+</html>
